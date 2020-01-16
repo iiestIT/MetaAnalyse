@@ -43,5 +43,3 @@ def data(img_input, name="default"):
 
     except IOError:                                                                                             #TODO write a errorhandler
         print(IOError)
-
-data("klasse.jpg")
