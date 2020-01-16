@@ -12,7 +12,7 @@ def data(img_input, name="default"):
     now = datetime.datetime.now()                                                                               #? get a timestamp
     date_time = now.strftime("%H-%M-%S_%m-%d-%Y")                                                               #? timestamp-format = h, m, s - m, d, y
     
-    cache_dir = "./cache/"                                                                                      #? cache directory (path)
+    cache_dir = "./cache/exifread/"                                                                             #? cache directory (path)
     path_name = name + "_" + date_time                                                                          #? filename + timestamp = path-name
     path = os.path.join(cache_dir, path_name)                                                                   #? path = cach_dir + path_name
     
@@ -21,14 +21,14 @@ def data(img_input, name="default"):
     tags.update({'time_now' : date_time})                                                                       #? timestamp is joyning the dict
     tags.update({'file_name' : name})                                                                           #? filename is joyning the dict
 
-    JPEGThumbnail = copy.deepcopy(tags["JPEGThumbnail"])                                                        #? JPEGThumbnail is copyed from the dict
-    del tags["JPEGThumbnail"]                                                                                   #? JPEGThumbnail is del from the dict
-
     try:
-        with open(path + "_" + "JPEGThumbnail.txt", "w") as thumbnail:                                          #? write the JPEGThumbnail in the cache folder as an own file
-            thumbnail.write(str(JPEGThumbnail))
-    except IOError:                                                                                             #TODO write a errorhandler
-        print(IOError)
+        JPEGThumbnail = copy.deepcopy(tags["JPEGThumbnail"])                                                    #? JPEGThumbnail is copyed from the dict if it exist
+        if JPEGThumbnail:
+            with open(path + "_" + "JPEGThumbnail.txt", "w") as thumbnail:                                      #? write the JPEGThumbnail in the cache folder as an own file if is exist
+                thumbnail.write(str(JPEGThumbnail))
+            del tags["JPEGThumbnail"]
+    except:
+        print("JPEGThumbnail not exist" + " " + name + "_" + date_time)
 
     try:
         with open(path + ".json", "a") as file:                                                                 #? create the json file with path + .json
@@ -36,9 +36,12 @@ def data(img_input, name="default"):
             for key, value in tags.items():                                                                     #? loop the dict tags and write it into the file
                 if key != "file_name":                                                                          #? TRUE for all vals exept file_name
                     file.write("    " + '"' + str(key) + '"' + " : " + '"' + str(value) + '",' + "\n")          #? format of the lines
+
                 else:                                                                                           #? only file_name
                     file.write("    " + '"' + str(key) + '"' + " : " + '"' + str(value) + '"' + "\n")           #? same like above without the last ,
             file.write("}" + "\n")                                                                              #? last character in the json-format
 
     except IOError:                                                                                             #TODO write a errorhandler
         print(IOError)
+
+data("klasse.jpg")
