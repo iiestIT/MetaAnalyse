@@ -1,12 +1,9 @@
 #? imports
-import exifread
-import datetime
-import os
-import copy
+import exifread, datetime, os, copy
 
 # ? main-function
 def data(img_input, name="default"):
-    if name == "default":                                                                                       #? get the right name
+    if name == "default":
         name = img_input
 
     now = datetime.datetime.now()                                                                               #? get a timestamp
@@ -43,3 +40,5 @@ def data(img_input, name="default"):
 
     except IOError:                                                                                             #TODO write a errorhandler
         print(IOError)
+
+data("20140622_124126.jpg")

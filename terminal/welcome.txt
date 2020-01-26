@@ -1,2 +1,0 @@
-console ~# use q or quit to end the seession
-console ~# use -h or -help to open the help page
