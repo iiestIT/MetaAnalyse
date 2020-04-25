@@ -38,5 +38,5 @@ def data(img_input, name="default"):
                     file.write("    " + '"' + str(key) + '"' + " : " + '"' + str(value) + '"' + "\n")           #? same like above without the last ,
             file.write("}" + "\n")                                                                              #? last character in the json-format
 
-    except IOError:                                                                                             #TODO write a errorhandler
+    except IOError:
         print(IOError)
