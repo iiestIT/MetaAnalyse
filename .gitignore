@@ -1,3 +1,5 @@
 .vscode
 .idea
 venv
+utils/test.docx
+utils/test.pdf
